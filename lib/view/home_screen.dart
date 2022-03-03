@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/constant.dart';
+import 'package:todo_app/view/widgets/task_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,44 +10,64 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('ToDo'),
+        title: const Text(
+          'ToDo',
+          style: kBoldTitle,
+        ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Text('Hi,'),
-          const Text("Here's Your Today"),
-          Card(
-            elevation: 0,
-            color: Colors.amberAccent,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 20,
+                left: 25,
+                right: 25,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: const [
+                  Text(
+                    'Hi!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "Here's Your ToDos.",
+                    style: kBoldTitle,
+                  ),
+                ],
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text('TASKKKK'),
-                    Row(
-                      children: const [
-                        Icon(Icons.calendar_month_outlined),
-                        Text('12 March 2022'),
-                      ],
-                    ),
-                    Row(
-                      children: const [
-                        Icon(Icons.access_time),
-                        Text('7:30 PM'),
-                      ],
-                    ),
-                  ]),
+            TaskCard(task: 'dasdasd', date: DateTime.now()),
+            TaskCard(
+              task: 'dasdasd',
+              date: DateTime.now(),
+              color: Colors.amberAccent,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton.extended(
+          label: const Text(
+            'Add Todo',
+            style: TextStyle(color: Colors.white),
+          ),
+          icon: const Icon(
+            Icons.add_circle_sharp,
+            color: Colors.white,
+            
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
             ),
           ),
-        ],
-      ),
+          onPressed: () {}),
     );
   }
 }

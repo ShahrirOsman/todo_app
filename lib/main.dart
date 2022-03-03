@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/view/add_todo.dart';
 import 'package:todo_app/view/home_screen.dart';
 
 void main() {
@@ -15,13 +16,28 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        primarySwatch: Colors.grey,
+        primaryColor: Colors.black,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0,
         ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.black,
+        ),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.black,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade500),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
       ),
-      home: const HomeScreen(),
+      home: const AddTodo(),
     );
   }
 }
