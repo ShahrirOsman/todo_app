@@ -52,13 +52,13 @@ class EditTodoScreen extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new),
           ),
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                child: SizedBox(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
                   child: Column(
                     children: [
                       CustomTextField(
@@ -117,14 +117,11 @@ class EditTodoScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 2.h),
                         child: BottomButton(
                           title: 'Complete Task',
-                          backgroundColor: Colors.greenAccent,
+                          backgroundColor: Colors.indigoAccent[100],
                           foregroundColor: Colors.black,
                           onPressed: () {
-                            var todo = todoController
-                                .todos[todoController.index.value];
-                            todo.done = true;
-                            todoController.todos[todoController.index.value] =
-                                todo;
+                            todoController
+                                .completeTodo(todoController.index.value);
                             Get.back();
                           },
                         ),
@@ -132,25 +129,25 @@ class EditTodoScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-              BottomButton(
-                title: 'Save Task',
-                onPressed: () {
-                  todoController.editTodo(
-                    task: editController.text,
-                    startDateTime: todoController.strStartDate.value != ''
-                        ? todoController.selectedStartDate.value
-                        : null,
-                    endDateTime: todoController.strEndDate.value != ''
-                        ? todoController.selectedEndDate.value
-                        : null,
-                    allDay: todoController.isAllDay.value,
-                  );
-                  todoController.resetState();
-                  Get.back();
-                },
-              ),
-            ],
+                BottomButton(
+                  title: 'Save Task',
+                  onPressed: () {
+                    todoController.editTodo(
+                      task: editController.text,
+                      startDateTime: todoController.strStartDate.value != ''
+                          ? todoController.selectedStartDate.value
+                          : null,
+                      endDateTime: todoController.strEndDate.value != ''
+                          ? todoController.selectedEndDate.value
+                          : null,
+                      allDay: todoController.isAllDay.value,
+                    );
+                    todoController.resetState();
+                    Get.back();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

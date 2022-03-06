@@ -70,6 +70,13 @@ class TodoController extends GetxController {
     );
   }
 
+  void completeTodo(int index) {
+    var todo = todos.removeAt(index);
+    print("${todo.text} ${todo.done}");
+    todo.done = true;
+    todos.insert(todos.length, todo);
+  }
+
   pickStartTime(BuildContext context) async {
     var pickedTime = await pickDateTime(
       context: context,
@@ -153,5 +160,20 @@ class TodoController extends GetxController {
       dateTimePicked = joinDateTime(datePicked, timePicked!);
     }
     return dateTimePicked;
+  }
+
+  bool isFirstLaunch() {
+    bool? isFirstLaunch = GetStorage().read<bool>('isFirstLaunch') ?? true;
+
+    if (isFirstLaunch) {
+      todos.add(
+        Todo(
+          text: 'Your First Task',
+          startDateTime: DateTime.now(),
+        ),
+      );
+      GetStorage().write('isFirstLaunch', false);
+    }
+    return isFirstLaunch;
   }
 }

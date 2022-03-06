@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -44,7 +45,11 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        initialRoute: HomeScreen.id,
+        home: ShowCaseWidget(
+          builder: Builder(
+            builder: (context) => HomeScreen(),
+          ),
+        ),
         getPages: [
           GetPage(
             name: HomeScreen.id,

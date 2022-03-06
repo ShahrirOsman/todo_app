@@ -31,13 +31,13 @@ class AddTodoScreen extends StatelessWidget {
         ),
       ),
       body: Obx(
-        () => Padding(
-          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                child: SizedBox(
+        () => SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -116,34 +116,37 @@ class AddTodoScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-              BottomButton(
-                title: 'Save Task',
-                onPressed: () async {
-                  todoController.addTodo(
-                    task: taskController.text,
-                    startDateTime: todoController.strStartDate.value != ''
-                        ? todoController.selectedStartDate.value
-                        : null,
-                    endDateTime: todoController.strEndDate.value != ''
-                        ? todoController.selectedEndDate.value
-                        : null,
-                    allDay: todoController.isAllDay.value,
-                  );
-                  if (todoController.isAddEvent.value) {
-                    await todoController
-                        .addEvent(task: taskController.text)
-                        .then((value) {
-                      todoController.resetState();
-                      Get.back();
-                    });
-                  } else {
-                    todoController.resetState();
-                    Get.back();
-                  }
-                },
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 2.h),
+                  child: BottomButton(
+                    title: 'Save Task',
+                    onPressed: () async {
+                      todoController.addTodo(
+                        task: taskController.text,
+                        startDateTime: todoController.strStartDate.value != ''
+                            ? todoController.selectedStartDate.value
+                            : null,
+                        endDateTime: todoController.strEndDate.value != ''
+                            ? todoController.selectedEndDate.value
+                            : null,
+                        allDay: todoController.isAllDay.value,
+                      );
+                      if (todoController.isAddEvent.value) {
+                        await todoController
+                            .addEvent(task: taskController.text)
+                            .then((value) {
+                          todoController.resetState();
+                          Get.back();
+                        });
+                      } else {
+                        todoController.resetState();
+                        Get.back();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
