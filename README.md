@@ -3,7 +3,7 @@
 Manage your task with Todo App.
 
 ## Demo
-![App Demo](./gifs/demo.gif)
+![App Demo](./gifs/demo1.gif)
 
 ## Plugin Used
 
