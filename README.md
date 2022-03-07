@@ -2,6 +2,9 @@
 
 Manage your task with Todo App.
 
+## Demo
+![App Demo](./gifs/demo.gif)
+
 ## Plugin Used
 
 Here's the list of plugins that were used for this project:
