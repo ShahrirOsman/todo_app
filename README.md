@@ -6,12 +6,12 @@ Manage your task with Todo App.
 
 Here's the list of plugins that were used for this project:
 
-    1. [Get](https://pub.dev/packages/get) for state and route management.
-    2. [get_storage](https://pub.dev/packages/get_storage) for local data storage. 
-    3. [intl](https://pub.dev/packages/intl) for formatting and parsing datetime.
-    4. [showcaseview](https://pub.dev/packages/showcaseview) for interactive page guide.
-    5. [add_2_calendar](https://pub.dev/packages/add_2_calendar) for adding event to device calendar.
-    6. [sizer](https://pub.dev/packages/sizer) for responsive UI.
+* [Get](https://pub.dev/packages/get) for state and route management.
+* [get_storage](https://pub.dev/packages/get_storage) for local data storage. 
+* [intl](https://pub.dev/packages/intl) for formatting and parsing datetime.
+* [showcaseview](https://pub.dev/packages/showcaseview) for interactive page guide.
+* [add_2_calendar](https://pub.dev/packages/add_2_calendar) for adding event to device calendar.
+* [sizer](https://pub.dev/packages/sizer) for responsive UI.
 
 ## Installation
 
