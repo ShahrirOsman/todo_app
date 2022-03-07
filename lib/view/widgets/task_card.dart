@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:todo_app/constant.dart';
 
@@ -68,7 +67,7 @@ class TaskCard extends StatelessWidget {
                   size: 20.sp,
                   color: Colors.white,
                 ),
-                SizedBox(),
+                const SizedBox(),
               ],
             ),
           ),
@@ -106,9 +105,12 @@ class TaskCard extends StatelessWidget {
                     children: [
                       Text(
                         task,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
+                          decoration: done
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
                         ),
                       ),
                       SizedBox(

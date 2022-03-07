@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 
-const kBoldTitle = TextStyle(
+TextStyle kBoldTitle = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 18,
+  fontSize: 18.sp,
 );
 const kButtonTextStyle = TextStyle(color: Colors.white);
 final kLabelTextStyle = TextStyle(color: Colors.grey[600]);
 
 DateFormat dateFormat = DateFormat('d MMMM yyyy');
-
 DateFormat timeFormat = DateFormat('kk:mm a');
 DateFormat dateTimeFormat = DateFormat('d MMMM yyyy, kk:mm a');
 

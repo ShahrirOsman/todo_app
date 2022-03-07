@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'ToDo',
           style: kBoldTitle,
         ),
@@ -58,13 +58,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: const [
+                  children: [
                     Text(
                       'Hi!',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: 15.sp,
                       ),
+                    ),
+                    SizedBox(
+                      height: 1.h,
                     ),
                     Text(
                       "Here's Your ToDos.",
@@ -88,8 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (newIndex > oldIndex) {
                       newIndex -= 1;
                     }
-                    final todo = todoController.todos.removeAt(oldIndex);
-                    todoController.todos.insert(newIndex, todo);
+                    todoController.reorderTodo(oldIndex, newIndex);
                   },
                 ),
               )
@@ -103,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
         key: _one,
         description: 'Click here to create task',
         radius: const BorderRadius.all(
-          const Radius.circular(20),
+          Radius.circular(20),
         ),
         overlayPadding: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 3.w),
         child: Padding(
@@ -148,6 +150,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 key: _four,
                 description: 'Swipe to the right to complete task',
                 child: TaskCard(
+                  color: (index % 3 == 0)
+                      ? Colors.yellow
+                      : (index % 3 == 1)
+                          ? Colors.tealAccent
+                          : Colors.indigoAccent[100],
                   key: ValueKey(todoController.todos[index]),
                   task: todoController.todos[index].text != ''
                       ? todoController.todos[index].text!
@@ -164,19 +171,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   done: todoController.todos[index].done,
                   onDismissed: (direction) {
                     if (direction == DismissDirection.endToStart) {
-                      todoController.todos.removeAt(index);
-                      Get.snackbar('Remove!', "Task was succesfully Delete",
-                          backgroundColor: Colors.grey,
-                          colorText: Colors.white,
-                          snackPosition: SnackPosition.BOTTOM);
+                      todoController.deleteTodo(index);
                     }
                     if (direction == DismissDirection.startToEnd) {
-                      print('ltr');
                       todoController.completeTodo(index);
-                      Get.snackbar('Well Done!', "You have completed a task",
-                          backgroundColor: Colors.grey,
-                          colorText: Colors.white,
-                          snackPosition: SnackPosition.BOTTOM);
                     }
                   },
                 ),
@@ -185,6 +183,11 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         : TaskCard(
             key: ValueKey(todoController.todos[index]),
+            color: (index % 3 == 0)
+                ? Colors.yellow
+                : (index % 3 == 1)
+                    ? Colors.tealAccent
+                    : Colors.indigoAccent[100],
             task: todoController.todos[index].text != ''
                 ? todoController.todos[index].text!
                 : '(No Title)',
@@ -200,19 +203,10 @@ class _HomeScreenState extends State<HomeScreen> {
             done: todoController.todos[index].done,
             onDismissed: (direction) {
               if (direction == DismissDirection.endToStart) {
-                todoController.todos.removeAt(index);
-                Get.snackbar('Remove!', "Task was succesfully Delete",
-                    backgroundColor: Colors.black,
-                    colorText: Colors.white,
-                    snackPosition: SnackPosition.BOTTOM);
+                todoController.deleteTodo(index);
               }
               if (direction == DismissDirection.startToEnd) {
-                print('ltr');
                 todoController.completeTodo(index);
-                Get.snackbar('Well Done!', "You have completed a task",
-                    backgroundColor: Colors.grey,
-                    colorText: Colors.white,
-                    snackPosition: SnackPosition.BOTTOM);
               }
             },
           );

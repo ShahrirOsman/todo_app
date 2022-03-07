@@ -46,7 +46,6 @@ class TodoController extends GetxController {
       DateTime? startDateTime,
       DateTime? endDateTime,
       bool? allDay}) {
-    print(allDay.toString());
     todos.add(
       Todo(
         text: task,
@@ -72,9 +71,61 @@ class TodoController extends GetxController {
 
   void completeTodo(int index) {
     var todo = todos.removeAt(index);
-    print("${todo.text} ${todo.done}");
     todo.done = true;
     todos.insert(todos.length, todo);
+    Get.snackbar('Well Done!', "You have completed a task",
+        backgroundColor: Colors.black54,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM);
+  }
+
+  void deleteTodo(int index) {
+    todos.removeAt(index);
+    Get.snackbar('Remove!', "Task was succesfully Delete",
+        backgroundColor: Colors.black54,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM);
+  }
+
+  void reorderTodo(int oldIndex, int newIndex) {
+    final todo = todos.removeAt(oldIndex);
+    todos.insert(newIndex, todo);
+  }
+
+  void fetchTodoByIndex() {
+    isAllDay.value = todos[index.value].allDay;
+    if (todos[index.value].startDateTime != null) {
+      isAllDay.value
+          ? strStartDate.value =
+              dateFormat.format(todos[index.value].startDateTime!)
+          : strStartDate.value =
+              dateTimeFormat.format(todos[index.value].startDateTime!);
+    }
+    if (todos[index.value].endDateTime != null) {
+      isAllDay.value
+          ? strEndDate.value =
+              dateFormat.format(todos[index.value].endDateTime!)
+          : strEndDate.value =
+              dateTimeFormat.format(todos[index.value].endDateTime!);
+    }
+  }
+
+  void onAllDayChanged() {
+    isAllDay.value
+        ? strStartDate.value = dateFormat.format(selectedStartDate.value)
+        : strStartDate.value = dateTimeFormat.format(selectedStartDate.value);
+    isAllDay.value
+        ? strEndDate.value = dateFormat.format(selectedEndDate.value)
+        : strEndDate.value = dateTimeFormat.format(selectedEndDate.value);
+  }
+
+  void onAddEventChanged() {
+    isAllDay.value
+        ? strStartDate.value = dateFormat.format(selectedStartDate.value)
+        : strStartDate.value = dateTimeFormat.format(selectedStartDate.value);
+    isAllDay.value
+        ? strEndDate.value = dateFormat.format(selectedEndDate.value)
+        : strEndDate.value = dateTimeFormat.format(selectedEndDate.value);
   }
 
   pickStartTime(BuildContext context) async {
@@ -85,19 +136,25 @@ class TodoController extends GetxController {
     );
     if (pickedTime != null) {
       selectedStartDate.value = pickedTime;
-      strStartDate.value = dateTimeFormat.format(selectedStartDate.value);
+      strStartDate.value = isAllDay.value
+          ? dateFormat.format(selectedStartDate.value)
+          : dateTimeFormat.format(selectedStartDate.value);
     }
   }
 
   pickEndTime(BuildContext context) async {
     var pickedTime = await pickDateTime(
       context: context,
-      initialDate: selectedStartDate.value,
-      initialTime: TimeOfDay.fromDateTime(selectedStartDate.value),
+      initialDate: selectedStartDate.value.add(const Duration(hours: 1)),
+      initialTime: TimeOfDay.fromDateTime(
+        selectedStartDate.value.add(const Duration(hours: 1)),
+      ),
     );
     if (pickedTime != null) {
       selectedEndDate.value = pickedTime;
-      strEndDate.value = dateTimeFormat.format(selectedEndDate.value);
+      strEndDate.value = isAllDay.value
+          ? dateFormat.format(selectedEndDate.value)
+          : dateTimeFormat.format(selectedEndDate.value);
     }
   }
 
@@ -131,7 +188,7 @@ class TodoController extends GetxController {
       description: description,
       startDate: startDate,
       endDate: endDate,
-      allDay: false,
+      allDay: allDay,
       recurrence: recurrence,
     );
   }
@@ -140,6 +197,7 @@ class TodoController extends GetxController {
     required BuildContext context,
     required DateTime initialDate,
     required TimeOfDay initialTime,
+    bool allDay = false,
   }) async {
     DateTime? dateTimePicked;
     TimeOfDay? timePicked;
@@ -147,18 +205,24 @@ class TodoController extends GetxController {
     final DateTime? datePicked = await showDatePicker(
       context: context,
       initialDate: initialDate,
-      firstDate: DateTime(2022),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2023),
     ).whenComplete(() async {
-      timePicked = await showTimePicker(
-        context: context,
-        initialTime: initialTime,
-      );
+      allDay
+          ? timePicked = await showTimePicker(
+              context: context,
+              initialTime: initialTime,
+            )
+          : timePicked = null;
     });
 
     if ((datePicked != null) && (timePicked != null)) {
       dateTimePicked = joinDateTime(datePicked, timePicked!);
     }
+    if ((datePicked != null) && (timePicked == null)) {
+      dateTimePicked = joinDateTime(datePicked, initialTime);
+    }
+
     return dateTimePicked;
   }
 

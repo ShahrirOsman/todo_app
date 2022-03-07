@@ -1,15 +1,25 @@
 # todo_app
 
-A new Flutter project.
+Manage your task with Todo App.
 
-## Getting Started
+## Plugin Used
 
-This project is a starting point for a Flutter application.
+Here's the list of plugins that were used for this project:
 
-A few resources to get you started if this is your first Flutter project:
+    1. [Get](https://pub.dev/packages/get) for state and route management.
+    2. [get_storage](https://pub.dev/packages/get_storage) for local data storage. 
+    3. [intl](https://pub.dev/packages/intl) for formatting and parsing datetime.
+    4. [showcaseview](https://pub.dev/packages/showcaseview) for interactive page guide.
+    5. [add_2_calendar](https://pub.dev/packages/add_2_calendar) for adding event to device calendar.
+    6. [sizer](https://pub.dev/packages/sizer) for responsive UI.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Installation
+
+To run this project on your own, do the following:
+
+    1. Clone this project.
+    2. Run flutter pub get.
+    3. Run the project using flutter run or using your IDE's tools.
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,

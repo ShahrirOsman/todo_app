@@ -47,13 +47,13 @@ class MyApp extends StatelessWidget {
         ),
         home: ShowCaseWidget(
           builder: Builder(
-            builder: (context) => HomeScreen(),
+            builder: (context) => const HomeScreen(),
           ),
         ),
         getPages: [
           GetPage(
             name: HomeScreen.id,
-            page: () => HomeScreen(),
+            page: () => const HomeScreen(),
           ),
           GetPage(
             name: AddTodoScreen.id,

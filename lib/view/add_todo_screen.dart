@@ -18,7 +18,7 @@ class AddTodoScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
+        title:  Text(
           'New Todo',
           style: kBoldTitle,
         ),
@@ -74,23 +74,7 @@ class AddTodoScreen extends StatelessWidget {
                         value: todoController.isAllDay.value,
                         onChanged: (value) {
                           todoController.isAllDay.value = value;
-
-                          if (todoController.isAllDay.value) {
-                            todoController.selectedStartDate.value;
-                          }
-
-                          todoController.isAllDay.value
-                              ? todoController.strStartDate.value =
-                                  dateFormat.format(
-                                      todoController.selectedStartDate.value)
-                              : todoController.strStartDate.value =
-                                  dateTimeFormat.format(
-                                      todoController.selectedStartDate.value);
-                          todoController.isAllDay.value
-                              ? todoController.strEndDate.value = dateFormat
-                                  .format(todoController.selectedEndDate.value)
-                              : todoController.strEndDate.value = dateTimeFormat
-                                  .format(todoController.selectedEndDate.value);
+                          todoController.onAllDayChanged();
                         },
                       ),
                       CustomSwitchButton(
@@ -98,19 +82,7 @@ class AddTodoScreen extends StatelessWidget {
                         value: todoController.isAddEvent.value,
                         onChanged: (value) {
                           todoController.isAddEvent.value = value;
-
-                          todoController.isAllDay.value
-                              ? todoController.strStartDate.value =
-                                  dateFormat.format(
-                                      todoController.selectedStartDate.value)
-                              : todoController.strStartDate.value =
-                                  dateTimeFormat.format(
-                                      todoController.selectedStartDate.value);
-                          todoController.isAllDay.value
-                              ? todoController.strEndDate.value = dateFormat
-                                  .format(todoController.selectedEndDate.value)
-                              : todoController.strEndDate.value = dateTimeFormat
-                                  .format(todoController.selectedEndDate.value);
+                          todoController.onAddEventChanged();
                         },
                       ),
                     ],
